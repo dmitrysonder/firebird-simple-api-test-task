@@ -1,4 +1,5 @@
 import axios from "axios";
+import 'dotenv/config'
 
 export interface QuoteParams {
   from: string;
@@ -11,7 +12,6 @@ export interface QuoteParams {
 
 export class FireBirdApi {
   private API_URL = "https://router.firebird.finance/aggregator/v1/";
-  private API_KEY = "" // ;
   chainId: number;
 
   constructor(chainId: number) {
@@ -23,7 +23,7 @@ export class FireBirdApi {
 
     try {
       const data = await axios.get(this.API_URL + "route", {
-        headers: { "Content-Type": "application/json", "API-KEY": this.API_KEY },
+        headers: { "Content-Type": "application/json", "API-KEY": process.env.API_KEY },
         params: {
           ...params,
           source: "swap_bot",
